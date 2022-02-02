@@ -1,0 +1,4 @@
+.env
+ChromiumData
+__pycache__
+outlook.pkl
