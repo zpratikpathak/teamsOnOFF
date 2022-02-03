@@ -6,12 +6,13 @@ import os
 from dotenv import load_dotenv
 from telegram.ext import Updater
 from telegram.ext import CommandHandler, Filters, MessageHandler
-from telegram import ChatAction
+from telegram import ChatAction, KeyboardButton
 import shutil
 import pickle
 from os import execl
 from sys import executable
 import time
+from telegram import ReplyKeyboardMarkup
 
 load_dotenv()
 
@@ -63,7 +64,15 @@ def start(update, context):
     # print(user)
     context.bot.send_chat_action(chat_id=user["id"], action=ChatAction.TYPING)
     update.message.reply_text("Hello {}!".format(user["first_name"]))
-    update.message.reply_text("Your UserID is: {} ".format(user["id"]))
+    # update.message.reply_text("Your UserID is: {} ".format(user["id"]))
+    if user["id"] == int(USER_ID):
+        buttons = [[KeyboardButton("/online")], [KeyboardButton("/offline")]]
+        context.bot.send_message(
+            chat_id=USER_ID, text="Set your Status", reply_markup=ReplyKeyboardMarkup(buttons))
+    else:
+        update.message.reply_text(
+            "You are not authorized to use this bot.\nUse /owner to know about me"
+        )
 
 
 def status(update, context):
@@ -164,7 +173,7 @@ def online(update, context):
             context.bot.send_chat_action(
                 chat_id=USER_ID, action=ChatAction.TYPING)
 
-            time.sleep(10)
+            time.sleep(15)
 
             browser.save_screenshot("screenshot.png")
             context.bot.send_chat_action(
