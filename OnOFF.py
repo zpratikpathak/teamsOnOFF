@@ -146,7 +146,6 @@ def offline(update, context):
         context.bot.send_message(
             chat_id=USER_ID, text="Going Offline...!")
         context.bot.send_chat_action(chat_id=USER_ID, action=ChatAction.TYPING)
-
         pickle.dump("restart msg check", open("restart.pkl", "wb"))
         browser.quit()
         execl(executable, executable, "OnOFF.py")

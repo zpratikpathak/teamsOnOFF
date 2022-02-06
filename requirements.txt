@@ -1,3 +1,4 @@
 python-dotenv==0.19.0
 python_telegram_bot==13.7
 chromedriver-autoinstaller==0.3.1
+selenium==3.141.0
